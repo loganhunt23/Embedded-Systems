@@ -32,7 +32,7 @@ void setup() {
       
   if (c != C)
 	{ 
-  		delay(5);
+  		delay(50);
     	C = digitalRead(BUTTON);
 	}
   return C;
@@ -40,31 +40,43 @@ void setup() {
 }
   
 void setMode(int color){
+
   if (color==0){
     
-    analogWrite(RED, 255);
-  	analogWrite(GREEN, 0);
-  	analogWrite(BLUE, 0);}
+    analogWrite(RED, 0);
+    analogWrite(GREEN, 0);
+    analogWrite(BLUE, 0);}
+  //color off//
 
   if (color==1){
     
-    analogWrite(RED, 0);
-  	analogWrite(GREEN, 255);
-  	analogWrite(BLUE, 0);}  
-  
+    analogWrite(RED, 255);
+    analogWrite(GREEN, 0);
+    analogWrite(BLUE, 0);}
+  //RED//
+
   if (color==2){
     
     analogWrite(RED, 0);
-  	analogWrite(GREEN, 0);
-  	analogWrite(BLUE, 255);}
+    analogWrite(GREEN, 255);
+    analogWrite(BLUE, 0);}  
+  //GREEN//
+  
   if (color==3){
     
-    analogWrite(RED, 255);
-  	analogWrite(GREEN, 170);
-  	analogWrite(BLUE, 0);}
-  //custom color creation//
+    analogWrite(RED, 0);
+    analogWrite(GREEN, 0);
+    analogWrite(BLUE, 255);}
+  //BLUE//
   
   if (color==4){
+    
+    analogWrite(RED, 255);
+    analogWrite(GREEN, 170);
+    analogWrite(BLUE, 0);}
+  //custom color creation//
+  
+  if (color==5){
  
     analogWrite(RED, randomR);
     analogWrite(GREEN, randomG);
@@ -97,7 +109,7 @@ void loop()
      
  b = B;
   
- if (LED == 5 ) LED = 0;
+ if (LED == 6 ) LED = 0;
   
  setMode(LED);
  
