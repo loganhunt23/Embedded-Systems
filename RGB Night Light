@@ -1,0 +1,106 @@
+  const int RED=9;
+  const int GREEN=10;
+  const int BLUE=11;
+//sets color names to pwm pins//
+
+  const int BUTTON=12;
+//sets button press to pin 12//
+
+  int randomR;
+  int randomG;
+  int randomB;
+  int buttonPress;
+//varibles used to create random color//
+
+	boolean b = LOW;
+	boolean B = LOW;
+  int LED = 0;
+//variables for button press and debounce//
+
+void setup() {
+  
+  pinMode (RED, OUTPUT);
+  pinMode (GREEN, OUTPUT);
+  pinMode (BLUE, OUTPUT);
+  pinMode (BUTTON, INPUT);
+  //establishes I/O// 
+  
+}
+	boolean debounce (boolean c)
+{	
+    boolean C = digitalRead(BUTTON);
+      
+  if (c != C)
+	{ 
+  		delay(5);
+    	C = digitalRead(BUTTON);
+	}
+  return C;
+  
+}
+  
+void setMode(int color){
+  if (color==0){
+    
+    analogWrite(RED, 255);
+  	analogWrite(GREEN, 0);
+  	analogWrite(BLUE, 0);}
+
+  if (color==1){
+    
+    analogWrite(RED, 0);
+  	analogWrite(GREEN, 255);
+  	analogWrite(BLUE, 0);}  
+  
+  if (color==2){
+    
+    analogWrite(RED, 0);
+  	analogWrite(GREEN, 0);
+  	analogWrite(BLUE, 255);}
+  if (color==3){
+    
+    analogWrite(RED, 255);
+  	analogWrite(GREEN, 170);
+  	analogWrite(BLUE, 0);}
+  //custom color creation//
+  
+  if (color==4){
+ 
+    analogWrite(RED, randomR);
+    analogWrite(GREEN, randomG);
+    analogWrite(BLUE, randomB);}
+  //random color creation//
+
+}
+  
+
+
+void loop() 
+{ 
+ 
+ B = debounce(b);
+  
+ if (b == LOW && B == HIGH)
+   
+{ 
+  randomR=random(256);
+  randomSeed(analogRead(0));
+  randomG=random(256);
+  randomSeed(analogRead(0));
+  randomB=random(256);
+  randomSeed(analogRead(0));    	
+//randomizes pwm for random color//
+    
+  	LED ++;
+   
+ 	}
+     
+ b = B;
+  
+ if (LED == 5 ) LED = 0;
+  
+ setMode(LED);
+ 
+}
+
+
