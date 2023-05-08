@@ -1,0 +1,45 @@
+// Define motor pins
+const int motorPin1 = 2;
+const int motorPin2 = 3;
+const int motorEnable = 9;
+
+// Define potentiometer pin and power pin
+const int potPin = A0;
+const int potPowerPin = 13;
+
+// Define lower temperature threshold
+int lowerTemp = 150;
+
+void setup() {
+  // Set up motor pins as outputs
+  pinMode(motorPin1, OUTPUT);
+  pinMode(motorPin2, OUTPUT);
+  pinMode(motorEnable, OUTPUT);
+
+  // Set up potentiometer power pin as output
+  pinMode(potPowerPin, OUTPUT);
+}
+
+void loop() {
+  // Read temperature value
+  int tempv = analogRead(1);
+	
+  // Determine if pot power pin should be high or low based on temperature
+  if (tempv > lowerTemp) {
+    digitalWrite(potPowerPin, LOW); // Set power pin to HIGH to power potentiometer
+  } else {
+    digitalWrite(potPowerPin, HIGH); // Set power pin to LOW to turn off potentiometer power
+  }
+
+  // Read potentiometer value and map it to motor speed
+  int potValue = analogRead(potPin);
+  int motorSpeed = map(potValue, 0, 1023, 0, 255);
+
+  // Set motor direction and speed
+  digitalWrite(motorPin1, LOW);
+  digitalWrite(motorPin2, HIGH);
+  analogWrite(motorEnable, motorSpeed);
+
+  // Wait for some time
+  delay(100);
+}
